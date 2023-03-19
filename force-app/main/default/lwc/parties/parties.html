@@ -1,0 +1,28 @@
+<template>
+    <template if:true={isReady}>
+        <div class="slds-card">
+            <c-party
+                key={id} 
+                party={party} 
+                show-add-party={showAddParty} 
+                onhandleadd={add} 
+            ></c-party>
+        <lightning-accordion allow-multiple-sections-open active-section-name={openSections}>
+            <div class="slds-grid slds-grid_vertical slds-gutters">
+            <div class="slds-col"></div>
+            <lightning-accordion-section name="Parties" label="Parties">
+                <div class="slds-col">
+                        <template for:each={partiesToRender} for:item="party">
+                            <c-party key={party.Party_Code__c} party={party} onhandledelete={del}></c-party>
+                        </template>
+                </div>
+                <c-pagination input-records={parties} onpagination={handlePagination}></c-pagination>
+            </lightning-accordion-section>
+            </div>
+        </lightning-accordion>
+        </div>
+    </template>
+    <template if:false={isReady}>
+        <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+    </template>
+  </template>
